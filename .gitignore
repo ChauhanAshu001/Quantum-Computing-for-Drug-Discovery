@@ -1,0 +1,17 @@
+# Conda environment
+env/
+
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Generated results
+data/*.csv
+results/*.txt
+results/figures/*.png
+
+# VS Code
+.vscode/
