@@ -1,62 +1,100 @@
-# Quantum-Machine-Assisted Drug Discovery: Active-Site Molecular Evaluation via VQE
+# Quantum-Computing-for-Drug-Discovery
 
-An implementation and benchmarking study of the Variational Quantum Eigensolver (VQE) for molecular ground-state interaction modeling, based on the framework proposed in *Zhou et al., npj Drug Discovery (2026)*.
-
----
-
-## 📌 Problem Motivation
-Classical Computer-Aided Drug Design (CADD) methods rely on fixed-charge force fields that oversimplify dynamic electron correlation and polarization in critical enzyme/metal binding active sites. 
-
-This project implements a hybrid quantum-classical pipeline: classical methods handle large-scale geometric screening, while a quantum processor (simulated via Qiskit) acts as a high-precision active-space evaluator to compute ground-state potential energy curves and binding interactions.
+### Molecular Ground-State Energy & Active-Space Evaluation via VQE
+**Reference Paper:** *Quantum-machine-assisted drug discovery (npj Drug Discovery, 2026)*
 
 ---
 
-## 🚀 Key Features & Pipeline
-- **Second Quantization Formulation:** Uses `PySCF` to construct molecular electronic Hamiltonians (STO-3G basis).
-- **Fermion-to-Qubit Mapping:** Converts electronic creation/annihilation operators into Pauli spin operators via the **Jordan-Wigner transformation**.
-- **Hardware-Efficient Parameterized Ansatz:** Utilizes a `TwoLocal` circuit with $R_Y$ rotation blocks and $CZ$ entanglement layers.
-- **Hybrid Optimization Loop:** Executes the variational loop using the `StatevectorEstimator` primitive paired with classical numerical optimizers.
-- **Empirical Benchmarking:** Compares convergence speed and stability between gradient-free (`COBYLA`) and gradient-based (`SLSQP`) optimizers against exact classical matrix diagonalization (`NumPyMinimumEigensolver`).
+## 📌 Project Overview
+Classical Computer-Aided Drug Design (CADD) relies on empirical, fixed-charge force fields that struggle to accurately capture dynamic electron correlation and polarization in critical enzyme/metal binding active sites. 
+
+This project implements a hybrid quantum-classical pipeline using **Qiskit Nature**:
+- **Classical Screening:** Fast filtering and geometric conformation of drug-like candidates.
+- **Quantum Evaluator (VQE):** Targeted calculation of the molecular ground-state energy profile and binding well depth on the active-space electronic degrees of freedom.
+
+We benchmark the **Variational Quantum Eigensolver (VQE)** against exact classical matrix diagonalization (`NumPyMinimumEigensolver`) and evaluate optimizer performance on the quantum energy landscape.
 
 ---
 
-## 📂 Repository Structure
-- `src/`: Modular code components (Hamiltonian constructor, circuit ansatz, solver wrappers).
-- `experiments/`: Executable scripts to run the distance sweep and optimizer benchmarks.
-- `results/`: High-resolution figures and exported metrics ready for review.
-- `notebooks/`: Exploratory Jupyter notebook adapted from the official Qiskit Nature framework.
+## 🏗️ Repository Architecture
+
+```text
+Quantum-Computing-for-Drug-Discovery/
+├── data/
+│   └── simulation_metrics.csv         # Computed Hartree energies and residual errors
+├── env/                               # Local Python virtual environment
+├── experiments/
+│   ├── run_dissociation_sweep.py      # Potential energy dissociation curve (distance sweep)
+│   └── run_optimizer_benchmark.py     # Optimizer convergence & circuit resource profiling
+├── notebooks/
+│   └── 01_qiskit_nature_reference.ipynb # Base Qiskit Nature tutorial notebook
+├── results/
+│   ├── figures/
+│   │   ├── dissociation_curve.png     # Ground-state energy dissociation plot
+│   │   └── optimizer_convergence.png  # COBYLA vs SLSQP convergence trajectory
+│   └── circuit_specs.txt              # Circuit depth, qubit count, parameter count
+├── src/
+│   ├── molecular_hamiltonian.py       # PySCF molecular driver & Jordan-Wigner mapper
+│   ├── ansatz_factory.py              # Parameterized TwoLocal ansatz construction
+│   └── solvers.py                     # Classical exact & VQE solver execution interfaces
+├── .gitignore
+├── requirements.txt                   # Locked dependencies
+└── README.md
+```
 
 ---
 
-## 🛠️ Setup & Execution
+## ⚙️ Methodology & Pipeline
 
-### 1. Installation
-\`\`\`bash
-git clone https://github.com/<your-username>/quantum-drug-discovery-vqe.git
-cd quantum-drug-discovery-vqe
-python -m venv venv
+1. **Second Quantization:** Define molecular active sites using `PySCFDriver` under the minimal `STO-3G` basis set.
+2. **Fermion-to-Qubit Mapping:** Transform electronic creation/annihilation operators into Pauli spin operators (X, Y, Z) via the **Jordan-Wigner transformation**.
+3. **Ansatz Circuit:** Construct a hardware-efficient `TwoLocal` variational circuit with Ry single-qubit rotations and CZ entanglement blocks.
+4. **Hybrid Variational Optimization:** Measure the energy expectation value <H> using Qiskit's `StatevectorEstimator` and iteratively update circuit parameters θ using classical optimizers until ground-state energy converges.
+5. **Algorithmic Evaluation:** Benchmark gradient-free (`COBYLA`) vs. gradient-based (`SLSQP`) optimizers and profile circuit complexity against NISQ hardware limits.
 
-# Activate Virtual Environment:
-# On Windows:
-venv\Scripts\activate
-# On Linux/macOS:
-source venv/bin/activate
+---
 
+## 🚀 Setup & Execution
+
+### 1. Environment Setup
+```bash
+# Clone the repository
+git clone [https://github.com/ChauhanAshu001/Quantum-Computing-for-Drug-Discovery.git](https://github.com/ChauhanAshu001/Quantum-Computing-for-Drug-Discovery.git)
+cd Quantum-Computing-for-Drug-Discovery
+
+# Activate the virtual environment
+# Windows (CMD / PowerShell):
+env\Scripts\activate
+# Linux / macOS:
+source env/bin/activate
+
+# Install dependencies
 pip install -r requirements.txt
-\`\`\`
+```
 
 ### 2. Run Experiments
-\`\`\`bash
-# Compute potential energy dissociation curve:
-python experiments/run_dissociation_sweep.py
 
-# Run optimizer comparison and resource profiling:
+```bash
+# Generate Potential Energy Dissociation Curve:
+python experiments/run_dissociation_sweep.py
+# Outputs: results/figures/dissociation_curve.png and data/simulation_metrics.csv
+
+# Run Optimizer Convergence & Hardware Resource Profiling:
 python experiments/run_optimizer_benchmark.py
-\`\`\`
+# Outputs: results/figures/optimizer_convergence.png and resource statistics in console.
+```
 
 ---
 
-## 📊 Results Summary
-- **Equilibrium Bond Length:** $0.735\text{ \AA}$ at $-1.1373\text{ Hartree}$.
-- **Hardware Resource Profile:** 4 Active Qubits, 12 Trainable Parameters ($\theta$).
-- **Optimizer Trade-off:** `SLSQP` exhibits faster asymptotic convergence on clean landscapes, whereas `COBYLA` demonstrates robustness in the presence of landscape fluctuations.
+## 📊 Key Results & Findings
+
+- **Equilibrium Bond Length:** Verified at 0.735 Å with a minimum ground-state energy of -1.1373 Hartree.
+- **Simulation Accuracy:** VQE ground-state energy matches exact classical matrix diagonalization with minimal residual error (< 1e-5 Hartree).
+- **Optimizer Trade-Off:** `SLSQP` exhibits rapid quadratic convergence on noiseless mathematical surfaces, while `COBYLA` displays stability against gradient fluctuations.
+- **Hardware Profile:** Requires 4 active qubits, 12 variational parameters (θ), and low two-qubit gate depth, validating its feasibility for near-term NISQ simulation.
+
+---
+
+## 📚 References
+- Zhou et al., *"Quantum-machine-assisted drug discovery"*, npj Drug Discovery, 2026.
+- Qiskit Nature Documentation & Tutorials: `03_ground_state_solvers`.
