@@ -8,7 +8,7 @@ attrs==26.1.0
 babel==2.18.0
 beautifulsoup4==4.15.0
 bleach==6.4.0
-cached-property @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_cached_property_1787678456/work
+cached-property
 certifi==2026.10.18
 cffi==2.1.1
 charset-normalizer==3.5.2
@@ -24,7 +24,7 @@ fastjsonschema==2.22.2
 fonttools==4.67.0
 fqdn==1.6.0
 h11==0.16.0
-h5py @ file:///D:/bld/h5py_1790855721599/work
+h5py
 httpcore==1.0.9
 httpx==0.28.1
 idna==3.20
@@ -65,9 +65,9 @@ nbformat==5.11.1
 nest-asyncio2==1.7.4
 notebook==7.6.3
 notebook_shim==0.2.4
-numpy @ file:///D:/bld/bld/rattler-build_numpy_1779169235/work/dist/numpy-2.4.6-cp311-cp311-win_amd64.whl#sha256=1f5fa3c853dd01b13cacc0fd3cfdc827bb2f4cf73638f3949fcee463a6dc8304
+numpy==2.4.6
 overrides==7.7.0
-packaging @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_packaging_1785888127/work
+packaging
 pandas==3.0.6
 pandocfilters==1.5.1
 parso==0.8.7
@@ -75,15 +75,14 @@ pillow==13.0.0
 platformdirs==4.13.5
 prometheus_client==0.26.0
 prompt_toolkit==3.0.53
-psutil @ file:///D:/bld/bld/rattler-build_psutil_1789682051/work
+psutil
 pure_eval==0.2.4
 pycparser==3.11
 Pygments==2.21.0
 pyparsing==3.3.3
-pyscf @ file:///D:/bld/bld/rattler-build_pyscf_1789238531/work
+pyscf
 python-dateutil==2.9.0.post0
 python-json-logger==4.2.0
-pywinpty==3.1.0
 PyYAML==6.0.3
 pyzmq==27.2.0
 qiskit==2.6.0
@@ -97,7 +96,7 @@ rfc3986-validator==0.1.1
 rfc3987-syntax==1.1.0
 rpds-py==2026.9.1
 rustworkx==0.18.1
-scipy @ file:///D:/bld/scipy-split_1779874050212/work/dist/scipy-1.17.1-cp311-cp311-win_amd64.whl#sha256=b7303dbff91581447e6473882e935d15f4f6d8c7afaae2f47a2d49e9c3940ea1
+scipy==1.17.1
 Send2Trash==2.1.0
 six==1.17.0
 soupsieve==3.0.3
