@@ -1,0 +1,8 @@
+=== Quantum Circuit Specifications (NISQ Profile) ===
+Target Molecule: H2 (Active Space, Bond Distance: 0.735 Angstrom)
+Active Qubits: 4
+Parameterized Variational Angles (theta): 12
+Transpiled Circuit Depth: 12
+Gate Operation Counts: {'ry': 12, 'cz': 12}
+Fermion-to-Qubit Mapping: Jordan-Wigner
+Ansatz Type: Hardware-Efficient TwoLocal (Ry rotations, CZ entanglement)
