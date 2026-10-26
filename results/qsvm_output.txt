@@ -1,0 +1,26 @@
+======================================================================
+QUANTUM-MACHINE-ASSISTED DRUG DISCOVERY: BENCHMARK & RESOURCE REPORT
+Reference: Zhou et al. (2026), npj Drug Discovery, 3:1
+======================================================================
+
+1. QUANTUM HARDWARE / SIMULATOR RESOURCE METRICS (2-Qubit Primary Run)
+----------------------------------------------------------------------
+Backend / Device            : Qiskit StatevectorSampler (Exact Statevector Simulation)
+Feature Map                 : ZZFeatureMap (Second-Order Pauli-Z Evolution)
+Qubits (n)                  : 2
+Hilbert Space Dim (2^n)     : 4
+Circuit Repetitions (reps)  : 2
+Entanglement Topology       : linear
+Decomposed Circuit Depth    : 10
+Total Gate Operations       : 14
+Gate Breakdown              : {'p': 6, 'h': 4, 'cx': 4}
+Kernel Matrix Wall-Clock (s): 47.6693s
+
+2. MODEL BENCHMARK COMPARISON (Test Split = 20%)
+----------------------------------------------------------------------
+                        Model  Accuracy (%)  AUROC  F1-Score  Precision  Recall  Train Time (s)  Inference Time (s)
+QSVM (2 Qubits, ZZFeatureMap)       75.0000 0.7802    0.4444     1.0000  0.2857         47.6735              0.0009
+   Classical SVM (RBF Kernel)       85.0000 0.9121    0.7273     1.0000  0.5714          0.0038              0.0010
+Classical SVM (Linear Kernel)       90.0000 0.9560    0.8333     1.0000  0.7143          0.0044              0.0009
+      Classical Random Forest       75.0000 0.7692    0.6154     0.6667  0.5714          0.2492              0.0332
+QSVM (4 Qubits, ZZFeatureMap)       70.0000 0.7363    0.4000     0.6667  0.2857         68.8434              0.0009
